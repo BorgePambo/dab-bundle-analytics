@@ -1,0 +1,6 @@
+variables:
+  catalog:
+    default: ecommerce_dev
+
+  schema:
+    default: bronze
