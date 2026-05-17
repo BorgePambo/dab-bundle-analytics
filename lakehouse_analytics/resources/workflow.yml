@@ -14,8 +14,8 @@ resources:
             #include: ../src/lakehouse_analytics_etl/transformations/**
             include: ../src/pipelines/transformations/**
 
-      environment:
-        dependencies:
+      #environment:
+      #  dependencies:
           # We include every dependency defined by pyproject.toml by defining an editable environment
           # that points to the folder where pyproject.toml is deployed.
-          - --editable ${workspace.file_path}
+      #    - --editable ${workspace.file_path}
