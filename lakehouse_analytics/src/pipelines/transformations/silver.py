@@ -8,6 +8,8 @@ def silver_transform():
     df = (
         spark.read.table("bronze.fact_sales")
         .withColumn("data_venda",F.to_timestamp(F.col("data_venda"), "yyyy-MM-dd HH:mm:ss"))
+        .withColumn(
+            "data_venda", F.to_date(F.col("data_venda")))
         .withColumn("pais", F.trim(F.split(F.col("localidade"), "-").getItem(0)))
         .withColumn("continente", F.trim(F.split(F.col("localidade"), "-").getItem(1)))
         .withColumn("sobrenome", F.trim(F.split(F.col("nome_cliente"), ",").getItem(0)))
@@ -16,6 +18,7 @@ def silver_transform():
         .withColumn("custo_unitario", F.col("custo_unitario").cast(DecimalType(10, 2)))
         .withColumn("preco_unitario", F.col("preco_unitario").cast(DecimalType(10, 2)))
         .withColumn("qtd_vendida", F.col("qtd_vendida").cast(IntegerType()))
+        .drop("localidade", "nome", "sobrenome")
         .dropDuplicates()
     )
 
@@ -37,4 +40,22 @@ def silver_transform():
                 F.trim(F.col(field.name))
             )
 
+    columns_order = [
+       "data_venda", 
+       "produto",
+       "categoria",
+       "nome_cliente",
+       "pais",
+       "continente",
+       "qtd_vendida",
+       "custo_unitario",
+       "preco_unitario",
+       "updated_at"
+    ]
+    
+    df = df.select(*columns_order)
+
     return df
+
+
+
