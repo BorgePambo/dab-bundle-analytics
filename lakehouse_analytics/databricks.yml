@@ -6,6 +6,7 @@ bundle:
 
 include:
   - resources/*.yml
+  - resources/*/*.yml
 
 # Variable declarations. These variables are assigned in the dev/prod targets below.
 variables:
@@ -19,7 +20,7 @@ targets:
     mode: development
     default: true
     presets:
-    name: dev_${}
+      name_prefix: "dev_${workspace.current_user.short_name}_"
 
     workspace:
       host: https://dbc-aab5aa5a-ee27.cloud.databricks.com

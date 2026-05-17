@@ -11,7 +11,8 @@ resources:
 
       libraries:
         - glob:
-            include: ../src/lakehouse_analytics_etl/transformations/**
+            #include: ../src/lakehouse_analytics_etl/transformations/**
+            include: ../src/pipelines/transformations/**
 
       environment:
         dependencies:
