@@ -1,0 +1,49 @@
+# Workflow de CI/CD para produção no Databricks
+name: Production Deployment
+
+# Evita múltiplos deploys simultâneos
+concurrency: 1
+
+# Executa quando houver push na branch main
+on:
+  push:
+    branches:
+      - main
+    # Executa apenas se houver alterações nesta pasta
+    paths:
+      - 'lakehouse_analytics/**'
+
+jobs:
+
+  deploy:
+
+    # Nome do job
+    name: Bundle Deploy
+
+    # Runner do GitHub Actions
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Faz checkout do repositório
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Instala Databricks CLI
+      - name: Setup Databricks CLI
+        uses: databricks/setup-cli@main
+
+      # Deploy do bundle
+      - name: Deploy Bundle
+
+        # Pasta onde está o databricks.yml
+        working-directory: lakehouse_analytics
+
+        # Comando de deploy
+        run: databricks bundle deploy
+
+        # Variáveis de ambiente
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: prod
