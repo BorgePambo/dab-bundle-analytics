@@ -68,14 +68,41 @@ store_project/
 ---
 
 
+---
 
-## 📞 Suporte e Contato
+## 🔄 Pipeline
 
-- **Autor**: borge.pambo71@gmail.com
-- **Workspace**: dbc-aab5aa5a-ee27.cloud.databricks.com
-- **UUID do Bundle**: c1ae8260-609a-4f13-bb1c-d7f02032e1ed
+### Bronze Layer
+- Ingestão de dados brutos
+- Fonte: arquivos ou sistemas externos
+
+### Silver Layer
+- Limpeza e padronização
+- Tratamento de datas, nomes e tipos
+- Criação de colunas derivadas
+
+### Gold Layer
+- Agregações de negócio
+- KPIs:
+  - Receita total
+  - Custo total
+  - Lucro
+  - Ticket médio
+  - Análises por cliente, produto e região
 
 ---
+
+## 🚀 Deploy (CI/CD)
+
+O projeto utiliza GitHub Actions para automação:
+
+- Push na branch `dev` → deploy em DEV
+- Push na branch `main` → deploy em PROD
+
+Workflow executa:
+
+```bash
+databricks bundle deploy --target prod
 
 ## 📄 Licença
 
@@ -84,3 +111,13 @@ Este projeto é fornecido como está. Consulte com sua organização sobre os te
 ---
 
 **Última atualização**: Maio 2026
+
+
+
+## 📞 Suporte e Contato
+
+- **Autor**: borge.pambo71@gmail.com
+- **Workspace**: dbc-aab5aa5a-ee27.cloud.databricks.com
+- **UUID do Bundle**: c1ae8260-609a-4f13-bb1c-d7f02032e1ed
+
+-
